@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_me_activity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.eddy.where.me_activity">
+
+    <Button
+        android:text="by google"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="58dp"
+        android:id="@+id/but_21" />
+
+    <Button
+        android:text="BY QR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/but_21"
+        android:layout_alignRight="@+id/but_21"
+        android:layout_alignEnd="@+id/but_21"
+        android:layout_marginTop="30dp"
+        android:id="@+id/but_22"
+        android:layout_alignLeft="@+id/but_21"
+        android:layout_alignStart="@+id/but_21" />
+</RelativeLayout>
