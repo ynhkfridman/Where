@@ -53,8 +53,9 @@ public class opening extends AppCompatActivity {
                 ///now we go to fire base
                 try
                 {
-                    Intent k = new Intent(opening.this,they_activity.class);
-                    startActivity(k);
+//                    Intent k = new Intent(opening.this,they_activity.class);
+//                    startActivity(k);
+                    // TODO Meni: where this class?
                 }catch(Exception e){
 
                 }

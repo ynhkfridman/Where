@@ -21,10 +21,6 @@ public class tsila extends AppCompatActivity {
     public TextView toremove;
     private String ans;
     private FirebaseUser user;
-    *//**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     *//*
     private GoogleApiClient client;
 
 
