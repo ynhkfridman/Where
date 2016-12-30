@@ -33,4 +33,5 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:id="@+id/but_1_2" />
+
 </RelativeLayout>

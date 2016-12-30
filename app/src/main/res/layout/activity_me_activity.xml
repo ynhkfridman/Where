@@ -30,4 +30,24 @@
         android:id="@+id/but_22"
         android:layout_alignLeft="@+id/but_21"
         android:layout_alignStart="@+id/but_21" />
+
+    <Button
+        android:text="BLE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="startBLE"
+        android:id="@+id/button2" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="84dp"
+        android:autoLink="web"
+        android:id="@+id/textView4" />
+
 </RelativeLayout>

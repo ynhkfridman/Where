@@ -1,8 +1,11 @@
 package com.example.eddy.where;
 
+import android.location.Location;
+
 import com.firebase.client.Firebase;
 
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseUser;
 
 
@@ -24,6 +27,9 @@ public class Config {
     public static void setUser(FirebaseUser fbUser){
         user = fbUser;
     }
+
+    public static Location2D bleLoc;
+    public static LatLng currentLocation = new LatLng(0,0);
 
 
 }

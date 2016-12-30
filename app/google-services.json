@@ -46,11 +46,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "551045223428-15cub0potececq9u6k5sol4eo5hvm2hn.apps.googleusercontent.com",
+          "client_id": "551045223428-5ut9ctglhhhaaj4ipci97e8lpeibpium.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.eddy.where",
-            "certificate_hash": "BE72B78DAC3DB9147497A08DC9F155796E8E5B98"
+            "certificate_hash": "04B0434C8D4385B99135B54F684E19DBBBD7E422"
+          }
+        },
+        {
+          "client_id": "551045223428-cnh2050i6nf393dqfp01enr38a22iqjl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.eddy.where",
+            "certificate_hash": "4BE5BB1D7030FA1793FF58238FC4B84F41F82B42"
           }
         },
         {
