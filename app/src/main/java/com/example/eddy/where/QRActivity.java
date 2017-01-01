@@ -51,7 +51,7 @@ public class QRActivity extends AppCompatActivity {
     }
 
     public void SaveLocation(String loactionAndName) {
-        Location BLELocation = new Location("fused");
+        Location QRLocation = new Location("fused");
         String[] list = loactionAndName.split(",");
         double lat = Double.parseDouble(list[0]);
         double lng = Double.parseDouble(list[1]);
@@ -62,10 +62,11 @@ public class QRActivity extends AppCompatActivity {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference();//"dLatitude: "+dLatitude+".dLongitude: "+dLongitude);
-        BLELocation.setLatitude(lat);
-        BLELocation.setLongitude(lng);
-        BLELocation.setAccuracy(5);
-        myRef.child(Config.getUser().getDisplayName()).setValue(BLELocation);
+        QRLocation.setLatitude(lat);
+        QRLocation.setLongitude(lng);
+        QRLocation.setAccuracy(5);
+        QRLocation.setProvider(Config.getUser().getDisplayName());
+        myRef.child(Config.getUser().getDisplayName()).setValue(QRLocation);
 
         LatLng point = new LatLng(lat, lng);
         //  ref.child(name).child("Latitude").setValue(lat);

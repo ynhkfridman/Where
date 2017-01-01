@@ -12,7 +12,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -30,6 +33,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private FirebaseUser user;
     private LocationManager locationManager;
+    private Firebase ref;
 
 
     @Override
@@ -60,76 +64,34 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
 
         mapFragment.getMapAsync(this);
+        Firebase.setAndroidContext(this);
 
-    }
+        ref = new Firebase(Config.FIREBASE_URL);
 
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                mMap.clear();
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
-
-  /* private Location getLastKnownLocation() {////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        try {
-            locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
-            List<String> providers = locationManager.getProviders(true);
-            Location bestLocation = null;
-            for (String provider : providers) {
-                Location l = locationManager.getLastKnownLocation(provider);
-                if (l == null) {
-                    continue;
-                }
-                if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
-                    // Found best last known location: %s", l);
-                    bestLocation = l;
+                    if (postSnapshot.child("latitude").exists() && postSnapshot.child("longitude").exists()) {
+                        double lat = postSnapshot.child("latitude").getValue(Double.class);
+                        double lon = postSnapshot.child("longitude").getValue(Double.class);
+                        String name = postSnapshot.child("provider").getValue(String.class);
+                        mMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(lat, lon))
+                                .title(name));
+                    }
                 }
             }
-            double speed= (Math.sqrt(Math.pow(currentLocation.getLatitude() - lastLocation.getLatitude(), 2)
-                    + Math.pow((currentLocation.getLongitude() - lastLocation.getLongitude()),2)))
-                    / (lastLocation.getTime()-currentLocation.getTime());
-            lastLocation = currentLocation;
-            currentLocation = bestLocation;
 
-            Toast.makeText(this, "Speed: " + speed, Toast.LENGTH_SHORT).show();
-
-            return bestLocation;
-        } catch (SecurityException e) {
-
-        }
-        return null;
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                System.out.println("The read failed: " + firebaseError.getMessage());
+            }
+        });
     }
 
-    //
-    public void SaveGPSLocation(View v) {
-        Location location = getLastKnownLocation();
-        Firebase ref = new Firebase(Config.FIREBASE_URL);
-        if (Config.getUser() != null) {
-            String name = Config.getUser().getDisplayName();
-            if (location != null) {
-                ref.child(name).removeValue();
-
-                LatLng point = new LatLng(location.getLatitude(), location.getLongitude());
-                ref.child(name).child("Latitude").setValue(location.getLatitude());
-                ref.child(name).child("Longitude").setValue(location.getLongitude());
-                ref.child(name).child("Nickname").setValue(name);
-
-
-                Toast.makeText(this, "Saving Location", Toast.LENGTH_SHORT).show();
-            } else {
-                //Location is null
-            }
-
-        } else {
-            //   Toast.makeText(this, "User Not Found, return to login page", Toast.LENGTH_SHORT).show();
-        }
-
-    }/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    */
 
     void getCurrentLocation() {
         Location myLocation  = mMap.getMyLocation();
@@ -141,6 +103,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Log.i("APPLICATION"," : "+dLongitude);
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference myRef = database.getReference();//"dLatitude: "+dLatitude+".dLongitude: "+dLongitude);
+            myLocation.setProvider(Config.getUser().getDisplayName());
             myRef.child(Config.getUser().getDisplayName()).setValue(myLocation);
 
             //Firebase ref = new Firebase(Config.getURL()).child("12345");
@@ -181,6 +144,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
        // Firebase ref = new Firebase(Config.getURL()).child("12345");
        // ref.setValue("on the bahaiim");
 
-
     }
+
 }

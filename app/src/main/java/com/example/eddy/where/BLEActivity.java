@@ -141,7 +141,7 @@ public class BLEActivity extends AppCompatActivity implements View.OnClickListen
                 if (loc == null) {
 
                     Context context = getApplicationContext();
-                    CharSequence text = "the location not in the database";
+                    CharSequence text = "the location not in the database - use other technology";
                     int duration = Toast.LENGTH_LONG;
 
                     Toast toast = Toast.makeText(context, text, duration);
@@ -250,6 +250,7 @@ public class BLEActivity extends AppCompatActivity implements View.OnClickListen
         BLELocation.setLatitude(lat);
         BLELocation.setLongitude(lng);
         BLELocation.setAccuracy(25);
+        BLELocation.setProvider(Config.getUser().getDisplayName());
         myRef.child(Config.getUser().getDisplayName()).setValue(BLELocation);
 
         LatLng point = new LatLng(lat, lng);
