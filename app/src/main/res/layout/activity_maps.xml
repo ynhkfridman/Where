@@ -43,30 +43,6 @@
             android:layout_width="1dip"
             android:layout_height="match_parent"
             android:background="#aaa" />
-        <Button
-            android:id="@+id/loadQr"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Load QR"
-            android:gravity="center_horizontal|center_vertical"
-            android:onClick="LoadQR"
-            />
-        <Button
-            android:id="@+id/loadBLE"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Load BLE"
-            android:gravity="center_horizontal|center_vertical"
-            android:onClick=""
-            />
-        <Button
-            android:id="@+id/saveQR"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Save QR"
-            android:gravity="center_horizontal|center_vertical"
-            android:onClick="SaveQR"
-            />
 
     </RadioGroup>
 

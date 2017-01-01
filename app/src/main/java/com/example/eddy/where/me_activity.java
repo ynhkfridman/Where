@@ -76,8 +76,8 @@ public class me_activity extends AppCompatActivity {
 //            Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
             try {
               //  URL url = new URL(result);
-                TextView tv = (TextView)findViewById(R.id.textView4);
-                tv.setText(result);
+               // TextView tv = (TextView)findViewById(R.id.textView4);
+              //  tv.setText(result);
             } catch (Exception e) {
             }
         }

@@ -22,6 +22,9 @@ import java.util.HashMap;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.firebase.client.Firebase;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class BLEActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
     private final static String TAG = MainActivity.class.getSimpleName();
+    private GoogleMap mMap;
 
     public static final int REQUEST_ENABLE_BT = 1;
 
@@ -135,7 +139,7 @@ public class BLEActivity extends AppCompatActivity implements View.OnClickListen
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String loc = dataSnapshot.getValue(String.class);
                 if (loc == null) {
-//
+
                     Context context = getApplicationContext();
                     CharSequence text = "the location not in the database";
                     int duration = Toast.LENGTH_LONG;
@@ -145,6 +149,7 @@ public class BLEActivity extends AppCompatActivity implements View.OnClickListen
 
 
                 } else {
+                    SaveLocation(loc);
                     Intent intent = new Intent();
                     intent.putExtra("BLE_Status", loc);
                     setResult(1075, intent);
@@ -229,5 +234,28 @@ public class BLEActivity extends AppCompatActivity implements View.OnClickListen
         btn_Scan.setText("Scan Again");
 
         mBTLeScanner.stop();
+    }
+    public void SaveLocation(String loactionAndName) {
+        Location BLELocation = new Location("fused");
+        String[] list = loactionAndName.split(",");
+        double lat = Double.parseDouble(list[0]);
+        double lng = Double.parseDouble(list[1]);
+        String name = list[2];
+
+       // Firebase ref = new Firebase(Config.FIREBASE_URL);
+       // ref.child(name).removeValue();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();//"dLatitude: "+dLatitude+".dLongitude: "+dLongitude);
+        BLELocation.setLatitude(lat);
+        BLELocation.setLongitude(lng);
+        BLELocation.setAccuracy(25);
+        myRef.child(Config.getUser().getDisplayName()).setValue(BLELocation);
+
+        LatLng point = new LatLng(lat, lng);
+      //  ref.child(name).child("Latitude").setValue(lat);
+       // ref.child(name).child("Longitude").setValue(lng);
+        //ref.child(name).child("Nickname").setValue(name);
+        Toast.makeText(this, "Saving Location", Toast.LENGTH_SHORT).show();
     }
 }
